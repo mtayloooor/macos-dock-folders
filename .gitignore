@@ -1,2 +1,4 @@
 build/
 .DS_Store
+dock-colours.conf
+dock-colours.conf.tmp

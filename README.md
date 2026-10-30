@@ -60,11 +60,36 @@ Then drag the generated `.app` files from `./build/` into your Dock.
 
 ### Options
 
-| Option            | Description                                       |
-| ----------------- | ------------------------------------------------- |
-| `--all <dir>`     | Build apps for all sub-folders in `<dir>`         |
-| `<folder>`        | Build an app for a single folder                  |
-| `OUTPUT_DIR=path` | Change the output directory (default: `./build/`) |
+| Option               | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| `--all <dir>`        | Build apps for all sub-folders in `<dir>`                    |
+| `<folder>`           | Build an app for a single folder                             |
+| `--output-dir <dir>` | Change the output directory (default: `./build/`)            |
+| `--bg <mode>`        | Background colour behind emoji icons (see below)             |
+| `--gradient`         | Draw the background as a light-to-dark gradient              |
+
+### Background colours
+
+Folders with a **Customize Folder** emoji get the emoji drawn on a coloured square. `--bg` picks the colour:
+
+| Mode          | Background                                                                 |
+| ------------- | -------------------------------------------------------------------------- |
+| `tag`         | The folder's Finder tag colour (default). Grey if the folder has no tag.  |
+| `grey`        | Plain grey, as in earlier versions                                         |
+| `emoji`       | The emoji's own main colour, shifted so the emoji stands out               |
+| `interactive` | Asks for a hex colour and gradient per folder, saves the answers, builds   |
+| `saved`       | Uses the saved answers without asking; unsaved folders use their tag colour |
+
+Add `--gradient` to any mode for a gradient. In interactive mode it sets the default answer instead.
+
+```bash
+./dock-folders.sh --bg tag --gradient --all ~/Documents/dock-folders
+./dock-folders.sh --bg interactive --all ~/Documents/dock-folders
+```
+
+Interactive mode accepts `#RRGGBB`, `RRGGBB`, `#RGB`, or the words `tag`, `emoji` or `grey`. Press Enter to use the tag colour. Answers are saved to `dock-colours.conf` next to the script. On later runs it shows each saved value and asks whether to keep it. Use `--bg saved` in scripts so a rebuild keeps your colours.
+
+Folders without an emoji keep Finder's own folder icon, which already shows the folder's colour.
 
 ## Installation
 
